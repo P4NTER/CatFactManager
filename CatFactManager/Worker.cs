@@ -27,12 +27,10 @@ namespace CatFactManager
 
         protected override async Task ExecuteAsync(CancellationToken stoppingToken)
         {
-            AnsiConsole.Clear();
-            AnsiConsole.Write(new Rule("Cat Fact Manager").LeftJustified());
-
+            DisplayHeader();
             while (!stoppingToken.IsCancellationRequested)
             {
-                Console.WriteLine();
+                AnsiConsole.WriteLine();
                 var choice = AnsiConsole.Prompt(
                     new SelectionPrompt<string>()
                         .Title("Options")
@@ -47,6 +45,7 @@ namespace CatFactManager
                             " - Delete all facts",
                             "<- Exit program"
                         }));
+                DisplayHeader();
                 switch (choice)
                 {
                     case " - Get a fact":
@@ -73,6 +72,13 @@ namespace CatFactManager
             }
         }
 
+        private void DisplayHeader()
+        {
+            AnsiConsole.Clear();
+            AnsiConsole.Write(new Rule("Cat Fact Manager").LeftJustified());
+            AnsiConsole.WriteLine();
+        }
+
         private async Task GetFactAndSaveAsync()
         {
             var catFact = await _catFactApiClient.GetCatFactAsync();
@@ -89,7 +95,7 @@ namespace CatFactManager
                 var panel = new Panel($"{catFact.Fact}\n\nLength: {catFact.Length}")
                 {
                     Header = new PanelHeader($"Fact"),
-                    Padding = new Padding(2, 1, 2, 1),
+                    Padding = new Padding(2, 1),
                     Expand = false
                 };
                 AnsiConsole.Write(panel);
@@ -121,7 +127,7 @@ namespace CatFactManager
                 var panel = new Panel($"{fact.Fact}\n\nLength: {fact.Length}")
                 {
                     Header = new PanelHeader($"Fact {counter}"),
-                    Padding = new Padding(2, 1, 2, 1),
+                    Padding = new Padding(2, 1),
                     Expand = false
                 };
                 AnsiConsole.Write(panel);
