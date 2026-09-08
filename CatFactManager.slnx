@@ -1,0 +1,6 @@
+<Solution>
+  <Folder Name="/Tests/">
+    <Project Path="CatFactService.UnitTests/CatFactService.UnitTests.csproj" Id="e3ba6c2e-ed40-4801-bd3c-dfc13b4ee522" />
+  </Folder>
+  <Project Path="CatFactManager/CatFactManager.csproj" />
+</Solution>
